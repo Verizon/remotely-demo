@@ -1,10 +1,10 @@
 
 organization in Global  := "demo"
 
-scalaVersion in Global  := "2.11.4"
+scalaVersion in Global  := "2.10.4"
 
-val protocol = project
+lazy val demo = project.in(file(".")).aggregate(protocol, rpc)
 
-val client = project.dependsOn(protocol)
+lazy val protocol = project
 
-val server = project.dependsOn(protocol)
+lazy val rpc = project.dependsOn(protocol)
