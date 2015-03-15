@@ -5,8 +5,8 @@ import protocol._
 
 // NB: The GenServer macro needs to receive the FQN of all types, or import them
 // explicitly. The target of the macro needs to be an abstract class.
-@GenServer(demo.protocol.definition)
-abstract class MovieServer
+@GenServer(demo.protocol.definition) abstract class MovieServer
+@GenClient(demo.protocol.definition.signatures) object MovieClient
 
 class MovieServerImpl extends MovieServer {
   def getActors: List[ActorId] => Response[List[Actor]] = ids =>
