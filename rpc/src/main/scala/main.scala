@@ -12,7 +12,7 @@ object Server {
     val service = new MovieServerImpl
     val env = service.environment
     val shutdown = env.serve(address,
-      capabilities = Capabilities(Set.empty),
+      // capabilities = Capabilities(Set.empty),
       monitoring = Monitoring.consoleLogger("[server]")).run
   }
 }
