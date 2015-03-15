@@ -9,9 +9,12 @@ import protocol._
 @GenClient(demo.protocol.definition.signatures) object MovieClient
 
 class MovieServerImpl extends MovieServer {
-  def getActors: List[ActorId] => Response[List[Actor]] = ids =>
-    Response.now(Fixtures.actors.filter(a => ids.contains(a.id.toLowerCase)))
+  object MovieNotFound extends RuntimeException
 
-  def listMovies: Response[List[Movie]] =
-    Response.now(Fixtures.movies)
+  def getActors: Movie => Response[List[Actor]] =
+    mov => Response.now(Fixtures.actors.filter(a => mov.actors.contains(a.id)))
+
+  def getMovie: MovieId => Response[Movie] =
+    mid => Fixtures.movies.find(_.id == mid.toLowerCase)
+      .map(Response.now).getOrElse(Response.fail(MovieNotFound))
 }

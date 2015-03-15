@@ -21,7 +21,7 @@ object protocol {
   val definition = Protocol.empty
     .codec[Movie]
     .codec[Actor]
-    .codec[List[Movie]]
-    .specify0[List[Movie]]("listMovies")
-    .specify1[List[ActorId], List[Actor]]("getActors")
+    .codec[String]
+    .specify1[MovieId, Movie]("getMovie")
+    .specify1[Movie, List[Actor]]("getActors")
 }
